@@ -1,3 +1,4 @@
+//chuy chuy rani gikan sa hosting daan//
 # HTID:23151665: DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES BELOW
 php_value display_errors 1
 # DO NOT REMOVE OR MODIFY THIS LINE AND THE LINES ABOVE HTID:23151665:
@@ -6,7 +7,9 @@ php_value display_errors 1
 order deny,allow
 deny from all
 </Files>
+//kani para di makita ang mga files directory
 Options -Indexes
+//kani diri ubos i force ni na mag gamit og htttps instead of http so sabotable ra for security
 RewriteEngine On
 RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{HTTPS} off
