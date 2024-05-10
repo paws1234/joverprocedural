@@ -1,3 +1,4 @@
+// so kani if ever i try og access ang files specially backend endpoints mao ni siyay makita nila inig butnag sa url sa engpoind url basta chuy chuy rani
 <!DOCTYPE html>
 <html lang="en">
 
