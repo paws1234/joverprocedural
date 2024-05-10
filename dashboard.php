@@ -1,15 +1,16 @@
 <?php
+//so kani mao ni ang dashboard ang gamit sa pag first if kay nag check sa session kung naa ang username og ang csrf token wa nako na butang pero naa sa hosted na files
 session_start();
 if (!isset($_SESSION["username"])) {
     header("Location: index.php");
     exit;
 }
-
+//kani chuychuy generate rag random shit as a payload para sa atong authentication sa session para logout ni ha ash/lloyd
 $csrf_token = bin2hex(random_bytes(32));
 $_SESSION['csrf_token'] = $csrf_token;
 ?>
 
-
+// ako gi sud ang generated token as a hidden shit para masud as a payload sa request inig logout parehas rani sa uban parts ani na files //
 <!DOCTYPE html>
 <html lang="en">
 
