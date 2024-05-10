@@ -1,4 +1,5 @@
 <?php
+//so request is post rani dapat 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: safe.php");
     exit;
@@ -9,20 +10,20 @@ session_start();
 if (!isset($_SESSION['last_ip'])) {
     $_SESSION['last_ip'] = ''; 
 }
-
+//headers rani ash/lloyd para security konohay di pa tested kugn gamit bajud
 header("Content-Security-Policy: default-src 'self'");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 
 $response = array();
-
+// ari i check ang payload sa json data gikan sa js request sa login
 if (!isset($_SESSION['csrf_token']) || !isset($_POST['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'])) {
     $response['error'] = "CSRF token validation failed.";
     echo json_encode($response);
     exit;
 }
-
+// gi filter ang input para di ma sql or xss shits
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
@@ -31,7 +32,7 @@ if (empty($username) || empty($password)) {
     echo json_encode($response);
     exit;
 }
-
+//database shits
 $servername = "localhost";
 $db_username = "paws";
 $db_password = "paws";
@@ -44,14 +45,14 @@ if ($conn->connect_error) {
     echo json_encode($response);
     exit;
 }
-
+//kani mao ni ang pag mitigate para sa brutforce and shits sabotable ra ang variable names
 $max_attempts_per_minute = 10;
 $attempt_window_seconds = 60;
 $min_ip_change_time = 600; 
-
+//kuhaon ang current ip sa mo login request na user
 $ip_address = $_SERVER['REMOTE_ADDR'];
 
-
+//mag calculate sa every ip changes sa user 
 $last_attempt_time = time() - $min_ip_change_time;
 $sql = "SELECT COUNT(*) AS num_attempts FROM login_attempts WHERE ip_address=? AND timestamp >= ?";
 $stmt = $conn->prepare($sql);
@@ -138,7 +139,7 @@ $stmt->bind_param("ss", $username, $ip_address);
 $stmt->execute();
 $stmt->close();
 $conn->close();
-
+//kani kay response ni siya pag authenticate para mo fit sa frontend na js nya secure kay di makita sa browser ang error shit json shit na ang response ash/lloyd
 $response['success'] = true;
 $response['redirect'] = 'dashboard.php';
 echo json_encode($response);
