@@ -1,4 +1,5 @@
 <?php
+//same shits rani sa uban sabotable ra ang functions name ash/lloyd
  session_start();
 $csrf_token = bin2hex(random_bytes(32));
 $_SESSION['csrf_token'] = $csrf_token;
