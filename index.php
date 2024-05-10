@@ -1,11 +1,11 @@
 <?php
 session_start(); 
 
-
+// mao niy mo generate og csrf token as a payload shit apra authentication chuy chuy rani
 $csrf_token = bin2hex(random_bytes(32));
 $_SESSION['csrf_token'] = $csrf_token;
 ?>
-
+//login shit ni diri sabotable ra ang fucntion names nya kabaw man ka ash unsa nanng mga requests shits so sabotable rana//
 <!DOCTYPE html>
 <html lang="en">
 
