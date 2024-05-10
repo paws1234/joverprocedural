@@ -1,4 +1,5 @@
 <?php
+//so kani dapat ang incoming request para sa logout.php kani na file kay post rajud mao niy gamit sa first if nya logout shits nana ang ubos 
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
     header("Location: safe.php");
     exit;
